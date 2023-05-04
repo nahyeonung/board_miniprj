@@ -1,7 +1,5 @@
 package thisisboard.model.vo;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -14,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemberVo {
-	private String username;
 	private String userid;
+	private String username;
 	private String userpassword;
 }
