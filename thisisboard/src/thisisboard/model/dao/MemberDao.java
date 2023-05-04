@@ -15,7 +15,7 @@ public class MemberDao implements IMemberDAO{
 	@Override
 	public int deleteMember(String memberid) {
 		int deletedRow = 0;
-		String sql = "delel from users where userid=?";
+		String sql = "delete from users where userid=?";
 		Connection con = null;
 		try {
 			con = BoardDataSource.getConnection();
@@ -62,8 +62,7 @@ public class MemberDao implements IMemberDAO{
 	public int insertMember(MemberVo vo) {
 		// TODO Auto-generated method stub
 		int count = 0;
-		String sql = "insert into users (userid, username, userpassowrd)" + 
-				" values (?, ?, ?);";
+		String sql = "insert into users (userid, username, userpassword) values (?, ?, ?)";
 		Connection con = null;
 		try {
 			con = BoardDataSource.getConnection();
@@ -71,6 +70,7 @@ public class MemberDao implements IMemberDAO{
 			stmt.setString(1, vo.getUserid());
 			stmt.setString(2, vo.getUsername());
 			stmt.setString(3, vo.getUserpassword());
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {

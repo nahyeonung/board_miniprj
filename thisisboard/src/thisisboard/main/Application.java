@@ -8,13 +8,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import thisisboard.model.BoardDataSource;
+import thisisboard.model.dao.MemberDao;
 import thisisboard.model.vo.MemberVo;
 
 public class Application {
 	public static Scanner sc = new Scanner(System.in);
 	public static MemberVo member = new MemberVo();
 	public static void main(String[] args) {
-		System.out.println("tests");
 		// 콘솔 ui
 		while(true) {
 			System.out.println("-------------------------------------------------");
@@ -63,7 +63,6 @@ public class Application {
 			}else {
 				System.out.println("아이디 또는 비밀번호가 틀렸습니다.");
 			}
-			System.out.println("출력끝");
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 		}finally {
@@ -75,23 +74,13 @@ public class Application {
 	public static void register() {
 		Connection con = null;
 		System.out.print("아이디를 입력해주세요: ");
-		String id = sc.nextLine();
+		member.setUserid(sc.nextLine());
 		System.out.print("비밀번호를 입력해주세요: ");
-		String pwd = sc.nextLine();
+		member.setUsername(sc.nextLine());
 		System.out.println("이름을 입력해주세요: ");
-		String name = sc.nextLine();
-		String sql = "insert into account (userid, username, userpassword) values(?,?,?)";
-		try {
-			con = BoardDataSource.getConnection();
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1, id);
-			stmt.setString(2, name);
-			stmt.setString(3, pwd);
-			stmt.executeUpdate();
-			stmt.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+		member.setUserpassword(sc.nextLine());
+		MemberDao dao = new MemberDao();
+		dao.insertMember(member);
 	}
 	public static void mainPage() {
 		System.out.println("---------------------------------------------------");
