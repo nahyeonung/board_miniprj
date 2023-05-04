@@ -14,11 +14,7 @@ import thisisboard.model.vo.MemberVo;
 public class Application {
 	public static Scanner sc = new Scanner(System.in);
 	public static MemberVo member = new MemberVo();
-	public static void main(String[] args) {
-		System.out.println("tests");
-		MemberDao da=new MemberDao();
-		da.getAllMembers();
-		// 콘솔 ui
+	public static void main(String[] args) {		// 콘솔 ui
 		while(true) {
 			System.out.println("-------------------------------------------------");
 			System.out.println("게시판에 오신걸 환영합니다.");

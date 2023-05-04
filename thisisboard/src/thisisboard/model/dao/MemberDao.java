@@ -62,8 +62,7 @@ public class MemberDao implements IMemberDAO{
 	public int insertMember(MemberVo vo) {
 		// TODO Auto-generated method stub
 		int count = 0;
-		String sql = "insert into users (userid, username, userpassword)" + 
-				" values (?, ?, ?);";
+		String sql = "insert into users (userid, username, userpassword) values (?, ?, ?)";
 		Connection con = null;
 		try {
 			con = BoardDataSource.getConnection();
@@ -72,6 +71,7 @@ public class MemberDao implements IMemberDAO{
 			stmt.setString(2, vo.getUsername());
 			stmt.setString(3, vo.getUserpassword());
 			count = stmt.executeUpdate();
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
