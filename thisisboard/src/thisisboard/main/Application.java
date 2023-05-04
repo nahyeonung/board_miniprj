@@ -108,12 +108,26 @@ public class Application {
 			sc.nextLine();
 			switch(num) {
 			case 1: System.out.println("내 글 확인 페이지"); 
+				myBoard(member.getUserid());
 				break;
 			case 2: System.out.println("글 쓰기");
 				break;
 			case 3: System.exit(0); 
 			default: System.out.println("번호를 잘못 입력하셨습니다.");
 			}
+		}
+		
+	}
+	private static void myBoard(String userid) {
+		// TODO Auto-generated method stub
+		try {
+			ArrayList<BoardVo> list=new ArrayList<BoardVo>();
+			list=bDao.getMyBoardList(userid);
+			for(BoardVo vo:list) {
+				System.out.println(vo);
+			}
+		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
 		}
 		
 	}
