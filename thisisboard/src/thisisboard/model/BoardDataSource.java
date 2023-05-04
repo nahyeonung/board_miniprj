@@ -8,7 +8,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 public class BoardDataSource {
 	
 	private static final String DRIVER = "oracle.jdbc.OracleDriver";
-	private static final String URL = "jdbc:oracle:thin:@192.168.0.175:1521/xe";
+	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static final String USERNAME = "hr";
 	private static final String PASSWORD = "hr";
 	

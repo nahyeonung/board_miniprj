@@ -8,6 +8,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import thisisboard.model.BoardDataSource;
+import thisisboard.model.dao.MemberDao;
 import thisisboard.model.vo.MemberVo;
 
 public class Application {
@@ -15,6 +16,8 @@ public class Application {
 	public static MemberVo member = new MemberVo();
 	public static void main(String[] args) {
 		System.out.println("tests");
+		MemberDao da=new MemberDao();
+		da.getAllMembers();
 		// 콘솔 ui
 		while(true) {
 			System.out.println("-------------------------------------------------");
@@ -48,7 +51,7 @@ public class Application {
 		String id = sc.nextLine();
 		System.out.print("비밀번호를 입력해주세요: ");
 		String pwd = sc.nextLine();
-		String sql = "select userid, username, userpassword from account where userid=? and userpassword=?";
+		String sql = "select userid, username, userpassword from users where userid=? and userpassword=?";
 		try {
 			con = BoardDataSource.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -78,9 +81,9 @@ public class Application {
 		String id = sc.nextLine();
 		System.out.print("비밀번호를 입력해주세요: ");
 		String pwd = sc.nextLine();
-		System.out.println("이름을 입력해주세요: ");
+		System.out.print("이름을 입력해주세요: ");
 		String name = sc.nextLine();
-		String sql = "insert into account (userid, username, userpassword) values(?,?,?)";
+		String sql = "insert into users (userid, username, userpassword) values(?,?,?)";
 		try {
 			con = BoardDataSource.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);
