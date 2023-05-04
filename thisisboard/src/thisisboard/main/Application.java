@@ -8,6 +8,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import thisisboard.model.BoardDataSource;
+import thisisboard.model.dao.BoardDao;
 import thisisboard.model.dao.MemberDao;
 import thisisboard.model.vo.BoardVo;
 import thisisboard.model.vo.MemberVo;
@@ -16,7 +17,7 @@ public class Application {
 	public static Scanner sc = new Scanner(System.in);
 	public static MemberVo member = new MemberVo();
 	public static MemberDao mDao = new MemberDao();
-	public static BoardVo board = new BoardVo();
+	public static BoardDao bDao = new BoardDao();
 	public static void main(String[] args) {		// 콘솔 ui
 		while(true) {
 			System.out.println("-------------------------------------------------");
@@ -85,9 +86,23 @@ public class Application {
 		mDao.insertMember(member);
 	}
 	public static void mainPage() {
-		System.out.println("---------------------------------------------------");
-		System.out.print(member.getUserid() + "님");
-		System.out.println("kosa 게시판에 오신 걸 환영합니다.");
-		System.out.println("---------------------------------------------------");
+		while(true) {
+			System.out.println("---------------------------------------------------");
+			System.out.print(member.getUserid() + "님");
+			System.out.println("kosa 게시판에 오신 걸 환영합니다.");
+			bDao.getAllBaordList();
+			System.out.println("1.내 글 확인 2.글 쓰기");
+			System.out.println("---------------------------------------------------");
+			System.out.print("번호 입력: ");
+			int num = sc.nextInt();
+			sc.nextLine();
+			switch(num) {
+			case 1: System.out.println("내 글 확인 페이지"); break;
+			case 2: System.out.println("글 쓰기"); break;
+			case 3: System.exit(0); 
+			default: System.out.println("번호를 잘못 입력하셨습니다.");
+			}
+		}
+		
 	}
 }
