@@ -91,17 +91,34 @@ public class Application {
 			System.out.println("---------------------------------------------------");
 			System.out.print(member.getUserid() + "님");
 			System.out.println("kosa 게시판에 오신 걸 환영합니다.");
-			bDao.getAllBaordList();
-			System.out.println("1.내 글 확인 2.글 쓰기");
+			try {
+				ArrayList<BoardVo> list=new ArrayList<BoardVo>();
+				list=bDao.getAllBaordList();
+				for(BoardVo vo:list) {
+					System.out.println(vo);
+				}
+			} catch (RuntimeException e) {
+				System.out.println(e.getMessage());
+			}
+			
+			System.out.println("1.내 글 확인 2.글 쓰기 3.로그아웃");
 			System.out.println("---------------------------------------------------");
 			System.out.print("번호 입력: ");
 			int num = sc.nextInt();
 			sc.nextLine();
 			switch(num) {
-			case 1: System.out.println("내 글 확인 페이지"); break;
-			case 2: System.out.println("글 쓰기"); break;
-			case 3: System.exit(0); 
+			case 1: System.out.println("내 글 확인 페이지"); 
+				break;
+			case 2: System.out.println("글 쓰기");
+				break;
+			case 3: {
+				System.out.println("로그아웃 되었습니다.");
+				break;
+			}
 			default: System.out.println("번호를 잘못 입력하셨습니다.");
+			}
+			if(num == 3) {
+				break;
 			}
 		}
 		
