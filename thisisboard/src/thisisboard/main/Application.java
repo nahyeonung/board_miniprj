@@ -14,6 +14,7 @@ public class Application {
 	public static Scanner sc = new Scanner(System.in);
 	public static MemberVo member = new MemberVo();
 	public static void main(String[] args) {
+		System.out.println("tests");
 		// 콘솔 ui
 		while(true) {
 			System.out.println("-------------------------------------------------");
