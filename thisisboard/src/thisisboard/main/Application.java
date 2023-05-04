@@ -91,15 +91,26 @@ public class Application {
 			System.out.println("---------------------------------------------------");
 			System.out.print(member.getUserid() + "님");
 			System.out.println("kosa 게시판에 오신 걸 환영합니다.");
-			bDao.getAllBaordList();
+			try {
+				ArrayList<BoardVo> list=new ArrayList<BoardVo>();
+				list=bDao.getAllBaordList();
+				for(BoardVo vo:list) {
+					System.out.println(vo);
+				}
+			} catch (RuntimeException e) {
+				System.out.println(e.getMessage());
+			}
+			
 			System.out.println("1.내 글 확인 2.글 쓰기");
 			System.out.println("---------------------------------------------------");
 			System.out.print("번호 입력: ");
 			int num = sc.nextInt();
 			sc.nextLine();
 			switch(num) {
-			case 1: System.out.println("내 글 확인 페이지"); break;
-			case 2: System.out.println("글 쓰기"); break;
+			case 1: System.out.println("내 글 확인 페이지"); 
+				break;
+			case 2: System.out.println("글 쓰기");
+				break;
 			case 3: System.exit(0); 
 			default: System.out.println("번호를 잘못 입력하셨습니다.");
 			}
