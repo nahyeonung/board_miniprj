@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="thisisboard/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-14">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="thisisboard/lib/commons-dbcp2-2.9.0.jar"/>
+	<classpathentry kind="lib" path="thisisboard/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="thisisboard/lib/commons-pool2-2.11.1.jar"/>
+	<classpathentry kind="lib" path="thisisboard/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="thisisboard/lib/ojdbc6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
