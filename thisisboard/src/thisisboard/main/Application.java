@@ -27,7 +27,7 @@ public class Application {
 					login();
 					break;
 				case 2:
-					System.out.println("회원가입 화면으로 이동");
+					register();
 					break;
 				case 3:
 					System.exit(0);
@@ -46,12 +46,12 @@ public class Application {
 		String id = sc.nextLine();
 		System.out.print("비밀번호를 입력해주세요: ");
 		String pwd = sc.nextLine();
-		String sql = "select userid, username, userpassword from account where userid='test' and userpassword='test'";
+		String sql = "select userid, username, userpassword from account where userid=? and userpassword=?";
 		try {
 			con = BoardDataSource.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql);
-//			stmt.setString(1, id);
-//			stmt.setString(2, pwd);
+			stmt.setString(1, id);
+			stmt.setString(2, pwd);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			System.out.println(rs.getString(1));
@@ -73,11 +73,25 @@ public class Application {
 		}
 	}
 	public static void register() {
+		Connection con = null;
 		System.out.print("아이디를 입력해주세요: ");
 		String id = sc.nextLine();
 		System.out.print("비밀번호를 입력해주세요: ");
 		String pwd = sc.nextLine();
 		System.out.println("이름을 입력해주세요: ");
+		String name = sc.nextLine();
+		String sql = "insert into account (userid, username, userpassword) values(?,?,?)";
+		try {
+			con = BoardDataSource.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, id);
+			stmt.setString(2, name);
+			stmt.setString(3, pwd);
+			stmt.executeUpdate();
+			stmt.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 }
