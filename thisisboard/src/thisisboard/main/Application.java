@@ -9,11 +9,14 @@ import java.util.Scanner;
 
 import thisisboard.model.BoardDataSource;
 import thisisboard.model.dao.MemberDao;
+import thisisboard.model.vo.BoardVo;
 import thisisboard.model.vo.MemberVo;
 
 public class Application {
 	public static Scanner sc = new Scanner(System.in);
 	public static MemberVo member = new MemberVo();
+	public static MemberDao mDao = new MemberDao();
+	public static BoardVo board = new BoardVo();
 	public static void main(String[] args) {		// 콘솔 ui
 		while(true) {
 			System.out.println("-------------------------------------------------");
@@ -74,23 +77,12 @@ public class Application {
 	public static void register() {
 		Connection con = null;
 		System.out.print("아이디를 입력해주세요: ");
-		String id = sc.nextLine();
+		member.setUserid(sc.nextLine());
 		System.out.print("비밀번호를 입력해주세요: ");
-		String pwd = sc.nextLine();
+		member.setUserpassword(sc.nextLine());
 		System.out.print("이름을 입력해주세요: ");
-		String name = sc.nextLine();
-		String sql = "insert into users (userid, username, userpassword) values(?,?,?)";
-		try {
-			con = BoardDataSource.getConnection();
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1, id);
-			stmt.setString(2, name);
-			stmt.setString(3, pwd);
-			stmt.executeUpdate();
-			stmt.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+		member.setUsername(sc.nextLine());
+		mDao.insertMember(member);
 	}
 	public static void mainPage() {
 		System.out.println("---------------------------------------------------");
