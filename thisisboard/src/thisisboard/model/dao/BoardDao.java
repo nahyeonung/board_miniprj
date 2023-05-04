@@ -14,7 +14,6 @@ public class BoardDao implements IBoardDAO{
 
 	@Override
 	public ArrayList<BoardVo> getAllBaordList() {
-		
 		ArrayList<BoardVo> boardList = new ArrayList<BoardVo>();
 		
 		String sql="select * from board";
@@ -41,6 +40,7 @@ public class BoardDao implements IBoardDAO{
 			try {stmt.close();} catch (SQLException e) {}
 			BoardDataSource.closeConnection(con);
 		}
+		
 		return boardList;
 	}
 
