@@ -1,5 +1,5 @@
 package thisisboard.model.vo;
 
-public class MemberVo {
+public class BoardVo {
 
 }

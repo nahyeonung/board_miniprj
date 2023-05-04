@@ -1,5 +1,5 @@
 package thisisboard.model.idao;
 
-public interface IBoardDAO {
+public interface IMemberDAO {
 
 }
