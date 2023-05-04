@@ -2,6 +2,7 @@ package thisisboard.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ public class MemberDao implements IMemberDAO{
 	@Override
 	public int deleteMember(String memberid) {
 		int deletedRow = 0;
-		String sql = "delel from users where userid=?";
+		String sql = "delete from users where userid=?";
 		Connection con = null;
 		try {
 			con = BoardDataSource.getConnection();
@@ -29,30 +30,39 @@ public class MemberDao implements IMemberDAO{
 		return deletedRow;
 	}
 
-	@Override
-	public ArrayList<String> getAllColumnNames() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ArrayList<MemberVo> getAllMembers() {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<MemberVo> memberList = new ArrayList<MemberVo>();
+		String sql = "select * from users";
+		Connection con = null;
+
+		try {
+			con = BoardDataSource.getConnection();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				MemberVo member = new MemberVo();
+				member.setUserid(rs.getString("userid"));
+				member.setUsername(rs.getString("username"));
+				member.setUserpassword(rs.getString("userpassword"));
+				memberList.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			BoardDataSource.closeConnection(con);
+		}
+		return memberList;
 	}
 
-	@Override
-	public int getMemberCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public int insertMember(MemberVo vo) {
 		// TODO Auto-generated method stub
 		int count = 0;
-		String sql = "insert into users (userid, username, userpassowrd)" + 
-					" values (?, ?, ?);";
+		String sql = "insert into users (userid, username, userpassword) values (?, ?, ?)";
 		Connection con = null;
 		try {
 			con = BoardDataSource.getConnection();
@@ -60,6 +70,8 @@ public class MemberDao implements IMemberDAO{
 			stmt.setString(1, vo.getUserid());
 			stmt.setString(2, vo.getUsername());
 			stmt.setString(3, vo.getUserpassword());
+			count = stmt.executeUpdate();
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -89,5 +101,5 @@ public class MemberDao implements IMemberDAO{
 		}
 		return count;
 	}
-	
+
 }
