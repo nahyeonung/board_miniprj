@@ -76,7 +76,7 @@ public class BoardDao implements IBoardDAO{
 	}
 
 	@Override
-	public int deleteBoard(int bno, String name) {
+	public int deleteBoard(int bno, String userid) {
 		int rowCount=0;
 		String sql="delete from board where bno=? and bwriter=?";
 		Connection con= null;
@@ -86,7 +86,7 @@ public class BoardDao implements IBoardDAO{
 			con=BoardDataSource.getConnection();
 			stmt=con.prepareStatement(sql);
 			stmt.setInt(1, bno);
-			stmt.setString(2, name);
+			stmt.setString(2, userid);
 			rowCount=stmt.executeUpdate();
 			if(rowCount == 0) {
 				System.out.println("삭제된 행이 없습니다.");
@@ -133,7 +133,7 @@ public class BoardDao implements IBoardDAO{
 	}
 
 	@Override
-	public int updateMyBoard(BoardVo boardvo, String name) {
+	public int updateMyBoard(BoardVo boardvo, String userid) {
 		int rowCount=0;
 		String sql="update board set btitle=?,bcontent=? where bno=? and bwriter=?";
 		Connection con= null;
@@ -144,10 +144,10 @@ public class BoardDao implements IBoardDAO{
 			stmt.setString(1, boardvo.getBtitle());
 			stmt.setString(2, boardvo.getBcontent());
 			stmt.setInt(3, boardvo.getBno());
-			stmt.setString(4, name);
+			stmt.setString(4, userid);
 			rowCount=stmt.executeUpdate();
 			if(rowCount == 0) {
-				System.out.println(name + "님의 " + boardvo.getBno() + "번 글은 존재하지 않습니다.");
+				System.out.println(userid + "님의 " + boardvo.getBno() + "번 글은 존재하지 않습니다.");
 			}else {
 				System.out.println("성공적으로 수정 완료했습니다.");
 			}
