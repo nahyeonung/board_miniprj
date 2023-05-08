@@ -165,8 +165,7 @@ public class Application {
 		System.out.print("내용을 입력하세요: ");
 		bVo.setBcontent(sc.nextLine());
 		try {
-			bDao.updateMyBoard(bVo);
-			System.out.println("zz");
+			bDao.updateMyBoard(bVo, member.getUsername());
 		}catch(RuntimeException e) {
 			System.out.println(e.getMessage());
 		}
@@ -174,7 +173,7 @@ public class Application {
 	}
 	private static void delete(int bno) {
 		try {
-			bDao.deleteBoard(bno);
+			bDao.deleteBoard(bno, member.getUsername());
 		} catch (RuntimeException e) {
 			System.out.println(e.getMessage());
 		}

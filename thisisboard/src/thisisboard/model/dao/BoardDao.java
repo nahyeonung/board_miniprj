@@ -76,9 +76,9 @@ public class BoardDao implements IBoardDAO{
 	}
 
 	@Override
-	public int deleteBoard(int bno) {
+	public int deleteBoard(int bno, String name) {
 		int rowCount=0;
-		String sql="delete from board where bno=?";
+		String sql="delete from board where bno=? and bwriter=?";
 		Connection con= null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -86,7 +86,13 @@ public class BoardDao implements IBoardDAO{
 			con=BoardDataSource.getConnection();
 			stmt=con.prepareStatement(sql);
 			stmt.setInt(1, bno);
+			stmt.setString(2, name);
 			rowCount=stmt.executeUpdate();
+			if(rowCount == 0) {
+				System.out.println("삭제된 행이 없습니다.");
+			}else {
+				System.out.println("삭제 완료했습니다.");
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
@@ -127,9 +133,9 @@ public class BoardDao implements IBoardDAO{
 	}
 
 	@Override
-	public int updateMyBoard(BoardVo boardvo) {
+	public int updateMyBoard(BoardVo boardvo, String name) {
 		int rowCount=0;
-		String sql="update board set btitle=?,bcontent=? where bno=?";
+		String sql="update board set btitle=?,bcontent=? where bno=? and bwriter=?";
 		Connection con= null;
 		PreparedStatement stmt=null;
 		try {
@@ -138,7 +144,13 @@ public class BoardDao implements IBoardDAO{
 			stmt.setString(1, boardvo.getBtitle());
 			stmt.setString(2, boardvo.getBcontent());
 			stmt.setInt(3, boardvo.getBno());
+			stmt.setString(4, name);
 			rowCount=stmt.executeUpdate();
+			if(rowCount == 0) {
+				System.out.println(name + "님의 " + boardvo.getBno() + "번 글은 존재하지 않습니다.");
+			}else {
+				System.out.println("성공적으로 수정 완료했습니다.");
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
