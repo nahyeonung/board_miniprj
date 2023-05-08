@@ -18,6 +18,7 @@ public class Application {
 	public static Scanner sc = new Scanner(System.in);
 	public static MemberVo member = new MemberVo();
 	public static MemberDao mDao = new MemberDao();
+	public static BoardDao bDao = new BoardDao();
 	public static void main(String[] args) {		// 콘솔 ui
 		while(true) {
 			System.out.println("-------------------------------------------------");
@@ -108,10 +109,10 @@ public class Application {
 			sc.nextLine();
 			switch(num) {
 			case 1: System.out.println("내 글 확인 페이지"); 
-				myBoard(member.getUsername());
+				myBoard(member.getUserid());
 				break;
 			case 2: System.out.println("글 쓰기");
-				write(member.getUsername());
+				write(member.getUserid());
 				break;
 			case 3: {
 				System.out.println("로그아웃 되었습니다.");
@@ -141,23 +142,54 @@ public class Application {
 		System.out.print("번호를 입력하세요: ");
 		int num = sc.nextInt();
 		sc.nextLine();
+		int bno;
 		switch(num){
 		case 1:
-			System.out.println("글 수정 페이지");
+			System.out.print("수정할 글 번호: ");
+			bno=sc.nextInt();
+			sc.nextLine();
+			updateBoard(bno);
 			break;
 		case 2:
-			System.out.println("글 삭제 페이지");
+			System.out.println("글 삭제할 게시물 번호");
+			bno=sc.nextInt();
+			delete(bno);
 			break;
 		}
 	}
-	private static void write(String username) {
+	private static void updateBoard(int bno) {
 		BoardVo bVo = new BoardVo();
-		BoardDao bDao = new BoardDao();
-		bVo.setBwriter(username);
+		bVo.setBno(bno);
 		System.out.print("제목을 입력하세요: ");
 		bVo.setBtitle(sc.nextLine());
-		System.out.println("내용을 입력하세요: ");
+		System.out.print("내용을 입력하세요: ");
 		bVo.setBcontent(sc.nextLine());
-		bDao.insertMyboard(bVo);
+		try {
+			bDao.updateMyBoard(bVo);
+			System.out.println("zz");
+		}catch(RuntimeException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	private static void delete(int bno) {
+		try {
+			bDao.deleteBoard(bno);
+		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	private static void write(String userid) {
+		BoardVo bVo = new BoardVo();
+		bVo.setBwriter(userid);
+		System.out.print("제목을 입력하세요: ");
+		bVo.setBtitle(sc.nextLine());
+		System.out.print("내용을 입력하세요: ");
+		bVo.setBcontent(sc.nextLine());
+		try {
+			bDao.insertMyboard(bVo);
+		}catch(RuntimeException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
