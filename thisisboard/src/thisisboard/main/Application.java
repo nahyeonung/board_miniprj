@@ -138,7 +138,7 @@ public class Application {
 		} catch (RuntimeException e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println("1.글 수정  2.글 삭제");
+		System.out.println("1.글 수정  2.글 삭제 3.뒤로 가기");
 		System.out.print("번호를 입력하세요: ");
 		int num = sc.nextInt();
 		sc.nextLine();
@@ -155,6 +155,10 @@ public class Application {
 			bno=sc.nextInt();
 			delete(bno);
 			break;
+		case 3:
+			break;
+		default:
+			System.out.println("잘못된 숫자입니다.");
 		}
 	}
 	private static void updateBoard(int bno) {

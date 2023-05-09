@@ -81,7 +81,6 @@ public class BoardDao implements IBoardDAO{
 		String sql="delete from board where bno=? and bwriter=?";
 		Connection con= null;
 		PreparedStatement stmt=null;
-		ResultSet rs=null;
 		try {
 			con=BoardDataSource.getConnection();
 			stmt=con.prepareStatement(sql);
@@ -96,7 +95,6 @@ public class BoardDao implements IBoardDAO{
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}finally {
-			try {rs.close();} catch (SQLException e) {}
 			try {stmt.close();} catch (SQLException e) {}
 			BoardDataSource.closeConnection(con);
 		}
@@ -105,7 +103,7 @@ public class BoardDao implements IBoardDAO{
 
 	@Override
 	public BoardVo getMyBoard(int dno) {
-		BoardVo boardvo=new BoardVo();
+		BoardVo boardvo = null;
 		String sql="select * from board where bno=?";
 		Connection con= null;
 		PreparedStatement stmt=null;
@@ -115,7 +113,8 @@ public class BoardDao implements IBoardDAO{
 			stmt=con.prepareStatement(sql);
 			stmt.setInt(1, dno);
 			rs=stmt.executeQuery();
-			while(rs.next()) {
+			if(rs.next()) {
+				boardvo = new BoardVo();
 				boardvo.setBno(rs.getInt("bno"));
 				boardvo.setBtitle(rs.getString("btitle"));
 				boardvo.setBwriter(rs.getString("bwriter"));
